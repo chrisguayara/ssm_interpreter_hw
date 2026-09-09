@@ -51,7 +51,7 @@ def jz_label(lbl):
         pass #TODO
 
 def store():
-    b = safe_pop()
+    i = safe_pop()
     a = safe_pop()
     store[a]=i
 def strip_comments(text):
