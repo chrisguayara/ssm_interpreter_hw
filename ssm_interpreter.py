@@ -36,7 +36,11 @@ def imod(a,b):
     b = safe_pop()
     a = safe_pop()
     stack.append(a % b)
-#for pop we can just use python's pop
+def load():
+    a = safe_pop()
+    if a not in store:
+        error("uninitialized store access")
+    stack.append(store[a])
 def dup():
     stack.append(stack[0])
 #TODO: JZ label, jnz label, jmp label
