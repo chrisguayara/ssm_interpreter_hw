@@ -11,30 +11,26 @@ def safe_pop():
         error("pop from empty stack")
     return stack.pop()
 def ildc(a):
-    try:
-        int(a)
-        stack.append(int(a))
-    except (ValueError, TypeError):
-        return
-def iadd(a,b):
+    stack.append(a)
+def iadd():
     b = safe_pop()
     a = safe_pop()
     stack.append(a + b)
-def isub(a,b):
+def isub():
     b = safe_pop()
     a = safe_pop()
     stack.append(a - b)
-def imul(a,b):
+def imul():
     b = safe_pop()
     a = safe_pop()
     stack.append(a * b)
-def idiv(a,b):
+def idiv():
     b = safe_pop()
     a = safe_pop()
     if b == 0:
         error("division by zero")
     stack.append(a// b)
-def imod(a,b):
+def imod():
     b = safe_pop()
     a = safe_pop()
     stack.append(a % b)
@@ -91,36 +87,36 @@ def build_program(tokens):
                 labels[name] = len(instructions)
                 i+=1
                 continue
-            if tok in ARG_OPS:
-                if i+1>= len(tokens):
-                    error(f"missing argument for {tok}")
-                arg_tok= tokens[i+1]
-                if tok == 'ildc':
-                    if not valid_integer(arg_tok):
-                        error(f"invalid integer: {arg_tok}")
-                    arg = int(arg_tok)
-                else:  # jz/jnz/jmp take a label name
-                    arg = arg_tok
-                instructions.append((tok, arg))
-                i += 2
-            elif tok in NOARG_OPS:
-                instructions.append((tok, None))
-                i += 1
-            else:
-                error(f"unknown token: {tok}")
-             # second pass: make sure every jump target actually exists
-            for opcode, arg in instructions:
-                if opcode in ('jz', 'jnz', 'jmp') and arg not in labels:
-                    error(f"undefined label: {arg}")
+        if tok in ARG_OPS:
+            if i+1>= len(tokens):
+                error(f"missing argument for {tok}")
+            arg_tok= tokens[i+1]
+            if tok == 'ildc':
+                if not valid_integer(arg_tok):
+                    error(f"invalid integer: {arg_tok}")
+                arg = int(arg_tok)
+            else:  # jz/jnz/jmp take a label name
+                arg = arg_tok
+            instructions.append((tok, arg))
+            i += 2
+        elif tok in NOARG_OPS:
+            instructions.append((tok, None))
+            i += 1
+        else:
+            error(f"unknown token: {tok}")
+        # second pass: make sure every jump target actually exists
+        for opcode, arg in instructions:
+            if opcode in ('jz', 'jnz', 'jmp') and arg not in labels:
+                error(f"undefined label: {arg}")
 
-            return instructions, labels
+        return instructions, labels
 
 def main():
     filename = sys.argv[1]
 
     with open(filename) as f:
        txt = f.read() 
-    strip_empties(txt)
+    txt=strip_empties(txt)
     print(txt)
 
 
