@@ -45,7 +45,7 @@ def dup():
     stack.append(stack[0])
 #TODO: JZ label, jnz label, jmp label
 def store():
-    b = safe_pop()
+    i = safe_pop()
     a = safe_pop()
     store[a]=i
 def strip_comments(text):
