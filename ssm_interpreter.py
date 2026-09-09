@@ -52,3 +52,12 @@ def strip_comments(text):
     lines = text.split('\n')
     cleaned = [line.split('#', 1)[0] for line in lines]
     return '\n'.join(cleaned)
+
+    
+
+
+def main():
+    filename = argv
+    txt = open(filename)
+
+    print(txt)
