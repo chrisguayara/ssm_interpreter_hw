@@ -1,3 +1,5 @@
+import sys
+
 stack=[]
 store={}
 def ildc(a):
@@ -25,3 +27,10 @@ def store():
     a=stack.pop()
     store[a]=i
     
+
+
+def main():
+    filename = argv
+    txt = open(filename)
+
+    print(txt)
