@@ -3,7 +3,7 @@
 CSE 304
 Assignment 01
 
-Names: Kushagra Taneja, Christopher Guayara
+Names: Kushagra Taneja netid: kutaneja 116646299, Christopher Guayara netid: cguayara 112881441
 """
 
 import sys
