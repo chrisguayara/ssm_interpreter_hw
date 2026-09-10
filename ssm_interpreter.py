@@ -12,6 +12,10 @@ def safe_pop():
     return stack.pop()
 def ildc(a):
     stack.append(a)
+def swap():
+    if len(stack) < 2:
+        error("swap requires two elements")
+    stack[-1], stack[-2] = stack[-2], stack[-1]
 def iadd():
     b = safe_pop()
     a = safe_pop()
