@@ -8,9 +8,6 @@ Names: Kushagra Taneja netid: kutaneja 116646299, Christopher Guayara netid: cgu
 
 import sys
 
-# ---------------------------------------------------------------------------
-# Global machine state
-# ---------------------------------------------------------------------------
 stack = []       # operand stack
 store_mem = {}   # directly-addressed store (dict: address -> value)
 
@@ -19,10 +16,7 @@ NOARG_OPS = {'iadd', 'isub', 'imul', 'idiv', 'imod',
              'pop', 'dup', 'swap', 'load', 'store'}
 
 
-# ---------------------------------------------------------------------------
-# Error handling
-# ---------------------------------------------------------------------------
-def error(msg):
+def error(msg): #error handling
     print(f"Error: {msg}", file=sys.stderr)
     sys.exit(1)
 def safe_pop():
@@ -43,6 +37,7 @@ def imul():
     b = safe_pop()
     a = safe_pop()
     stack.append(a * b)
+
 def idiv():
     b = safe_pop()
     a = safe_pop()
@@ -92,7 +87,7 @@ DISPATCH = {
     'store': store_op,
 }
 
-# Parsing logic
+# parsing logic
 def strip_comments(text):
     lines = text.split('\n')
     cleaned = [line.split('#', 1)[0] for line in lines]
@@ -181,7 +176,7 @@ def run(instructions, labels):
     if not stack:
         error("stack is empty at end of program; nothing to print")
     print(stack[-1])
-# Entry point
+
 def main():
     if len(sys.argv) < 2:
         error("usage: python3 ssm_interpreter.py <input_file>")
